@@ -1,0 +1,316 @@
+﻿SELECT orders.common_name, orders.melon_type, orders.quantity, orders.unit_price, orders.total_price FROM orders AS o JOIN melons AS m ON subselect orders.melon_id = melons.id WHERE orders.order_id = 2725;
+
+“CTE” = common table xpr
+WITH c_orders AS SELE … 
+
+
+user@hackbright:~$ cd src
+user@hackbright:~/src$ ls
+blockly          debugging-demo            html-forms      oo-melons
+bootstrap        dicts-restaurant-ratings  list-slicing    project-tracker
+calculator-1     dicts-word-count          madlibs         shopping-site
+calculator-2     flash-practice.py         markov-chains   sql-quiz
+css-trials       flask-intro               markov-twitter  testing-py
+data-structures  guessing-game             oo-drawing
+user@hackbright:~/src$ cd project-tracker/
+user@hackbright:~/src/project-tracker$ ls
+CREATE TABLE projects _temp code  hackbright.sql
+user@hackbright:~/src/project-tracker$ clear
+user@hackbright:~/src/project-tracker$ createdb hackbright
+user@hackbright:~/src/project-tracker$ psql hackbright < hackbright.sql
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+CREATE EXTENSION
+COMMENT
+SET
+SET
+SET
+CREATE TABLE
+ALTER TABLE
+CREATE SEQUENCE
+ALTER TABLE
+ALTER SEQUENCE
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+COPY 5
+ setval 
+--------
+      5
+(1 row)
+
+COPY 2
+ALTER TABLE
+REVOKE
+REVOKE
+GRANT
+GRANT
+user@hackbright:~/src/project-tracker$ psql
+psql (9.5.5)
+Type "help" for help.
+
+user=# select * from projects;
+ id |     title     |             description             | max_grade 
+----+---------------+-------------------------------------+-----------
+  1 | Markov        | Tweets generated from Markov chains |        50
+  2 | Blockly       | Programmatic Logic Puzzle Game      |        10
+  3 | Shopping Cart | An Ubermelon shopping site          |       100
+  4 | SQL-quiz      | Solved problems with SQL            |        26
+  5 | Flask         | Solved problems with Flask          |       100
+(5 rows)
+
+user=# select title, max_grade
+user-# from projects
+user-# where max_grade > 50;
+     title     | max_grade 
+---------------+-----------
+ Shopping Cart |       100
+ Flask         |       100
+(2 rows)
+
+user=# select title, max_grade from projects where max_grade > 10 and max_grade < 60;
+  title   | max_grade 
+----------+-----------
+ Markov   |        50
+ SQL-quiz |        26
+(2 rows)
+
+user=# select * from projects order by max_grade DESC;
+ id |     title     |             description             | max_grade 
+----+---------------+-------------------------------------+-----------
+  3 | Shopping Cart | An Ubermelon shopping site          |       100
+  5 | Flask         | Solved problems with Flask          |       100
+  1 | Markov        | Tweets generated from Markov chains |        50
+  4 | SQL-quiz      | Solved problems with SQL            |        26
+  2 | Blockly       | Programmatic Logic Puzzle Game      |        10
+(5 rows)
+
+user=# select * from projects order by max_grade;
+ id |     title     |             description             | max_grade 
+----+---------------+-------------------------------------+-----------
+  2 | Blockly       | Programmatic Logic Puzzle Game      |        10
+  4 | SQL-quiz      | Solved problems with SQL            |        26
+  1 | Markov        | Tweets generated from Markov chains |        50
+  3 | Shopping Cart | An Ubermelon shopping site          |       100
+  5 | Flask         | Solved problems with Flask          |       100
+(5 rows)
+
+user=# CREATE TABLE grades (
+user(# id SERIAL PRIMARY KEY,
+user(# student_github varchar(30)
+user(# REFERENCES students,
+user(# project_title varchar(30)
+user(# REFERENCES projects,
+user(# grade INTEGER);
+ERROR:  there is no primary key for referenced table "students"
+user=# CREATE TABLE grades (
+id SERIAL PRIMARY KEY,
+student_github varchar(30),
+project_title varchar(30),
+grade INTEGER);
+CREATE TABLE
+user=# SELECT * from grades;
+ id | student_github | project_title | grade 
+----+----------------+---------------+-------
+(0 rows)
+
+user=# INSERT into grades (student_github, project_title, grade)
+user-# VALUES ('jhacks','Markov','10');
+INSERT 0 1
+user=# INSERT into grades (student_github, project_title, grade)
+VALUES ('jhacks','Blockly','2');
+INSERT 0 1
+user=# INSERT into grades (student_github, project_title, grade)
+VALUES ('sdevelops','Markov', 50);
+INSERT 0 1
+user=# INSERT into grades (student_github, project_title, grade)
+VALUES ('sdevelops','Blockly', 100);
+INSERT 0 1
+user=# select * from grades;
+ id | student_github | project_title | grade 
+----+----------------+---------------+-------
+  1 | jhacks         | Markov        |    10
+  2 | jhacks         | Blockly       |     2
+  3 | sdevelops      | Markov        |    50
+  4 | sdevelops      | Blockly       |   100
+(4 rows)
+
+user=# SELECT first_name, last_name
+user-# from students
+user-# where github = 'jhacks';
+ first_name | last_name 
+------------+-----------
+ Jane       | Hacker
+(1 row)
+
+user=# SELECT project_title, grade
+user-# FROM grades
+user-# WHERE student_github = 'jhacks';
+ project_title | grade 
+---------------+-------
+ Markov        |    10
+ Blockly       |     2
+(2 rows)
+
+user=# SELECT title, max_grade
+user-# FROM projects;
+     title     | max_grade 
+---------------+-----------
+ Markov        |        50
+ Blockly       |        10
+ Shopping Cart |       100
+ SQL-quiz      |        26
+ Flask         |       100
+(5 rows)
+
+user=# SELECT *
+user-# FROM students
+user-# JOIN grades ON (students.github = grades.student_github);
+user=# select * from grades;
+ id | student_github | project_title | grade 
+----+----------------+---------------+-------
+  1 | jhacks         | Markov        |    10
+  2 | jhacks         | Blockly       |     2
+  3 | sdevelops      | Markov        |    50
+  4 | sdevelops      | Blockly       |   100
+(4 rows)
+
+user=# select * from projects;
+ id |     title     |             description             | max_grade 
+----+---------------+-------------------------------------+-----------
+  1 | Markov        | Tweets generated from Markov chains |        50
+  2 | Blockly       | Programmatic Logic Puzzle Game      |        10
+  3 | Shopping Cart | An Ubermelon shopping site          |       100
+  4 | SQL-quiz      | Solved problems with SQL            |        26
+  5 | Flask         | Solved problems with Flask          |       100
+(5 rows)
+
+user=# delete from projects where id = 2;
+DELETE 1
+user=# select * from grades;
+ id | student_github | project_title | grade 
+----+----------------+---------------+-------
+  1 | jhacks         | Markov        |    10
+  2 | jhacks         | Blockly       |     2
+  3 | sdevelops      | Markov        |    50
+  4 | sdevelops      | Blockly       |   100
+(4 rows)
+
+user=# select * from projects;
+ id |     title     |             description             | max_grade 
+----+---------------+-------------------------------------+-----------
+  1 | Markov        | Tweets generated from Markov chains |        50
+  3 | Shopping Cart | An Ubermelon shopping site          |       100
+  4 | SQL-quiz      | Solved problems with SQL            |        26
+  5 | Flask         | Solved problems with Flask          |       100
+(4 rows)
+
+user=# INSERT into projects (id, title, description, max_grade)
+VALUES (2, 'Blockly','Programmatic Logic Puzzle Game', 50);
+INSERT 0 1
+user=# SELECT *
+user-# FROM students
+user-# JOIN grades ON (students.github = grades.student_github)
+user-# JOIN projects ON (grades.project_title = projects.title);
+user=# SELECT *
+FROM students
+JOIN grades ON (students.github = grades.student_github)
+JOIN projects ON (grades.project_title = projects.title)
+user-# WHERE github = 'jhacks';
+cts.max_grade students.first_name, students.last_name, projects.title, grades.grade, proje 
+FROM students                                           
+JOIN grades ON (students.github = grades.student_github)
+JOIN projects ON (grades.project_title = projects.title)
+WHERE github = 'jhacks';
+ first_name | last_name |  title  | grade | max_grade 
+------------+-----------+---------+-------+-----------
+ Jane       | Hacker    | Markov  |    10 |        50
+ Jane       | Hacker    | Blockly |     2 |        50
+(2 rows)
+
+user=# SELECT students.first_name, students.last_name, p.title, grades.grade, p.max_gradeFROM students
+JOIN grades ON (students.github = grades.student_github)
+JOIN projects AS p ON (grades.project_title = p.title)
+WHERE students.github = 'jhacks';
+ first_name | last_name |  title  | grade | max_grade 
+------------+-----------+---------+-------+-----------
+ Jane       | Hacker    | Markov  |    10 |        50
+ Jane       | Hacker    | Blockly |     2 |        50
+(2 rows)
+
+user=# SELECT students.first_name, students.last_name, p.title AS t, grades.grade, p.max_grade           
+FROM students                                           
+JOIN grades ON (students.github = grades.student_github)
+JOIN projects AS p ON (grades.project_title = t)
+WHERE students.github = 'jhacks';
+ERROR:  column "t" does not exist
+LINE 4: JOIN projects AS p ON (grades.project_title = t)
+                                                      ^
+user=# SELECT students.first_name, students.last_name, projects.title, grades.grade, projects.max_grade
+FROM students                                           
+JOIN grades ON (students.github = grades.student_github)
+JOIN projects ON (grades.project_title = projects.title)
+WHERE github = 'jhacks';
+ first_name | last_name |  title  | grade | max_grade 
+------------+-----------+---------+-------+-----------
+ Jane       | Hacker    | Markov  |    10 |        50
+ Jane       | Hacker    | Blockly |     2 |        50
+(2 rows)
+
+user=# CREATE VIEW report_card_view AS
+user-# SELECT students.first_name,
+user-# students.last_name,
+user-# projects.title,
+user-# projects.max_grade,
+user-# grades.grade
+user-# FROM students
+user-# JOIN grades ON (students.github = grades.student_github)
+user-# JOIN projects ON (projects.title = grades.project_title);
+CREATE VIEW
+user=# SELECT *
+user-# FROM report_card_view;
+ first_name | last_name |  title  | max_grade | grade 
+------------+-----------+---------+-----------+-------
+ Jane       | Hacker    | Markov  |        50 |    10
+ Jane       | Hacker    | Blockly |        50 |     2
+ Sarah      | Developer | Markov  |        50 |    50
+ Sarah      | Developer | Blockly |        50 |   100
+(4 rows)
+
+user=# select * from report_card_view;
+ first_name | last_name |  title  | max_grade | grade 
+------------+-----------+---------+-----------+-------
+ Jane       | Hacker    | Markov  |        50 |    10
+ Jane       | Hacker    | Blockly |        50 |     2
+ Sarah      | Developer | Markov  |        50 |    50
+ Sarah      | Developer | Blockly |        50 |   100
+(4 rows)
+
+user=# SELECT * from students join report_card_view on (students.first_name = report_card_view.first_name);
+ first_name | last_name |  github   | first_name | last_name |  title  | max_grade | grade 
+------------+-----------+-----------+------------+-----------+---------+-----------+-------
+ Jane       | Hacker    | jhacks    | Jane       | Hacker    | Blockly |        50 |     2
+ Jane       | Hacker    | jhacks    | Jane       | Hacker    | Markov  |        50 |    10
+ Sarah      | Developer | sdevelops | Sarah      | Developer | Blockly |        50 |   100
+ Sarah      | Developer | sdevelops | Sarah      | Developer | Markov  |        50 |    50
+(4 rows)
+
+user=# SELECT first_name, last_name, grade from students join report_card_view on (students.first_name = report_card_view.first_name);
+ERROR:  column reference "first_name" is ambiguous
+LINE 1: SELECT first_name, last_name, grade from students join repor...
+               ^
+user=# SELECT students.first_name, students.last_name, grade from students join report_card_view on (students.first_name = report_card_view.first_name);
+ first_name | last_name | grade 
+------------+-----------+-------
+ Jane       | Hacker    |     2
+ Jane       | Hacker    |    10
+ Sarah      | Developer |   100
+ Sarah      | Developer |    50
+(4 rows)
+
+user=# SELECT students.first_name, students.last_name, grade from students join report_card_view on (students.first_name = report_card_view.first_name);

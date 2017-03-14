@@ -1,0 +1,36 @@
+CREATE TABLE projects (
+id SERIAL PRIMARY KEY,
+title VARCHAR(30),
+description TEXT,
+max_grade INTEGER
+);
+
+INSERT INTO projects (title, description, max_grade)
+VALUES ('Markov', 'Tweets generated from Markov chains', 50);
+
+
+INSERT INTO projects (title, description, max_grade)
+VALUES ('Blockly', 'Programmatic Logic Puzzle Game', 50);
+
+INSERT INTO projects (title, description, max_grade)
+VALUES ('Shopping Cart', 'An Ubermelon shopping site', 100);
+
+
+INSERT INTO projects (title, description, max_grade)
+VALUES ('SQL-quiz', 'Solved problems with SQL', 50);
+
+INSERT INTO projects (title, description, max_grade)
+VALUES ('Flask', 'Solved problems with Flask', 100);
+
+CREATE TABLE students (
+first_name VARCHAR(30),
+last_name VARCHAR(30),
+github VARCHAR(30)
+);
+
+INSERT INTO students (first_name, last_name, github)
+VALUES ('Jane', 'Hacker', 'jhacks');
+
+INSERT INTO students (first_name, last_name, github)
+VALUES ('Sarah', 'Developer', 'sdevelops');
+
